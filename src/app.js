@@ -1,4 +1,5 @@
 const express = require('express')
+const routes = require('./routes/index')
 
 const app = express()
 
@@ -6,6 +7,6 @@ const app = express()
 app.use(express.json())
 
 //routes
-// app.use('/', routes)
+app.use('/', routes)
 
 module.exports = app
