@@ -1,13 +1,38 @@
 const joyasModel = require('../models/joyas.model')
 
+const formatHATEOAS = (data) => {
+
+  const results = data.map(item => {
+    return {
+      name: item.nombre,
+      href: `/joyas/joya/${item.id}`
+    }
+  })
+
+  const total = results.length
+  const stock = data.reduce((stock, item) => stock += item.stock, 0)
+
+  return {
+    totalJoyas: total,
+    stockTotal: stock,
+    results
+  }
+}
+
 const getJoyasController = async (req, res) => {
   try {
+
     const queryStrings = req.query
     const joyas = await joyasModel.getJoyas(queryStrings)
-    res.json(joyas)
+
+    const results = formatHATEOAS(joyas)
+    res.json(results)
+
   } catch (error) {
+
     console.log(error)
     res.status(500).json({msg: "Internal server error"})
+
   }
 }
 
