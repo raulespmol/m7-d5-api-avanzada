@@ -1,12 +1,14 @@
 const database = require('../database/config')
 
-const checkConnect = async () => {
-  const consulta = "SELECT NOW()"
-  const {rows} = await database.query(consulta)
+const getJoyas = async () => {
+  const consulta = "SELECT * FROM inventario"
+  const {rows: joyas} = await database.query(consulta)
 
-  console.log(rows);
+  return joyas
 }
 
-module.exports = {
-  checkConnect
+const joyasModel = {
+  getJoyas
 }
+
+module.exports = joyasModel
