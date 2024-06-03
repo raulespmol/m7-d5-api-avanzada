@@ -36,6 +36,24 @@ const getJoyasController = async (req, res) => {
   }
 }
 
+const getJoyasByFilterController = async (req, res) => {
+  try {
+
+    const queryStrings = req.query
+    const joyas = await joyasModel.filterJoyas(queryStrings)
+
+    const results = formatHATEOAS(joyas)
+    res.json(results)
+
+  } catch (error) {
+
+    console.log(error)
+    res.status(500).json({msg: "Internal server error"})
+
+  }
+}
+
 module.exports = {
-  getJoyasController
+  getJoyasController,
+  getJoyasByFilterController
 }
